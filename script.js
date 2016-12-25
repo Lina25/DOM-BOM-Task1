@@ -1,7 +1,7 @@
 var form = document.createElement('form');
 form.setAttribute("name", "login");
 form.setAttribute("action", "https://google.com");
-form.setAttribute("onsubmit", "return validate()");
+form.setAttribute("onsubmit", "return validate(e)");
 var inputs = {
   age: {
     type: 'text',
