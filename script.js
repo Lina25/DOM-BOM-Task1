@@ -8,7 +8,7 @@ var inputs = {
     name: 'age',
     placeholder: 'your age'
   },
-   username: {
+    username: {
     type: 'text',
     name: 'username',
     placeholder: 'your username:user_'
@@ -37,7 +37,8 @@ function formInput(inputs) {
 }
 formInput(inputs);
 var form = document.querySelector('form');
-form.addEventListener('submit', function validate() {
+form.addEventListener('submit', function validate(e) {
+  e.preventDefault();
   checkAge(this.age.value);
   checkName(this.username.value);
   checkDate(this.date.value);
@@ -48,7 +49,8 @@ function checkAge(userage) {
   var ageOk = ageRegex.test(userage);
   if (ageOk) {
     return true;
-  } else {
+  }
+  else {
     alert("Your age is not valid!Age should contains only positive numbers!");
     return false;
   }
@@ -57,7 +59,8 @@ function checkAge(userage) {
 function checkName(username) {
   if (form.elements[1].value.indexOf("user_") == 0) {
     return true;
-  } else {
+  }
+  else {
     alert("Your username is not valid! It should start from user_");
     return false;
   }
@@ -68,7 +71,8 @@ function checkDate(date) {
   var dateOk = dateRegex.test(date);
   if (dateOk) {
     return true;
-  } else {
+  }
+  else {
     alert("Your date is not valid!");
     return false;
   }
