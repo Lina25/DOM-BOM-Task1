@@ -26,11 +26,11 @@ var inputs = {
 document.body.appendChild(form);
 
 function formInput(inputs) {
-  for (var elements in inputs) {
+  for (var in_field in inputs) {
     var input = document.createElement('input');
-    var element = inputs[elements];
-    for (var key in element) {
-      input.setAttribute(key, element[key])
+    var el = inputs[in_field];
+    for (var key in el) {
+      input.setAttribute(key, el[key])
     }
     form.appendChild(input);
   }
