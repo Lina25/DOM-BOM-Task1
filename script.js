@@ -1,24 +1,24 @@
 var form = document.createElement('form');
 form.setAttribute("name", "login");
 form.setAttribute("action", "https://google.com");
-form.setAttribute("onsubmit", "return validate(e)");
+form.setAttribute("onsubmit", "return function validate()");
 var inputs = {
   age: {
     type: 'text',
     name: 'age',
     placeholder: 'your age'
   },
-    username: {
+  username: {
     type: 'text',
     name: 'username',
     placeholder: 'your username:user_'
   },
-    date: {
+  date: {
     type: 'text',
     name: 'date',
     placeholder: 'dd/mm/yyyy'
   },
-    button: {
+  button: {
     type: 'submit',
     value: "Validate Me"
   }
@@ -26,11 +26,11 @@ var inputs = {
 document.body.appendChild(form);
 
 function formInput(inputs) {
-  for (var in_field in inputs) {
+  for (var elements in inputs) {
     var input = document.createElement('input');
-    var el = inputs[in_field];
-    for (var key in el) {
-      input.setAttribute(key, el[key])
+    var element = inputs[elements];
+    for (var key in element) {
+      input.setAttribute(key, element[key])
     }
     form.appendChild(input);
   }
@@ -39,41 +39,27 @@ formInput(inputs);
 var form = document.querySelector('form');
 form.addEventListener('submit', function validate(e) {
   e.preventDefault();
-  checkAge(this.age.value);
-  checkName(this.username.value);
-  checkDate(this.date.value);
+  if (checkAge(this.age.value) &&  checkName(this.username.value) && checkDate(this.date.value) )
+  {         
+    window.location.href = "http://google.com";
+  }
+  else {
+      	alert("invalid data - age should contains only positive numbers, username should starts with user_ and date should be in format dd/mm/yyyy");
+
+  }
 });
 
 function checkAge(userage) {
   var ageRegex = /^(0?[1-9]|[0-9][0-9])$/;
-  var ageOk = ageRegex.test(userage);
-  if (ageOk) {
-    return true;
-  }
-  else {
-    alert("Your age is not valid!Age should contains only positive numbers!");
-    return false;
-  }
+  return ageRegex.test(userage);
 }
 
 function checkName(username) {
-  if (form.elements[1].value.indexOf("user_") == 0) {
-    return true;
-  }
-  else {
-    alert("Your username is not valid! It should start from user_");
-    return false;
-  }
+	return (form.elements[1].value.indexOf("user_") == 0);
 }
 
 function checkDate(date) {
   var dateRegex = new RegExp("([0-9]{4}[/](0[1-9]|1[0-2])[/]([0-2]{1}[0-9]{1}|3[0-1]{1})|([0-2]{1}[0-9]{1}|3[0-1]{1})[/](0[1-9]|1[0-2])[/][0-9]{4})");
-  var dateOk = dateRegex.test(date);
-  if (dateOk) {
-    return true;
-  }
-  else {
-    alert("Your date is not valid!");
-    return false;
-  }
+  return dateRegex.test(date);
 }
+
